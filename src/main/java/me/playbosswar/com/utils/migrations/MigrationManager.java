@@ -35,7 +35,12 @@ public class MigrationManager {
 
         for (File file : files) {
             try (FileReader fr = new FileReader(file)) {
-                JsonObject json = new JsonParser().parse(fr).getAsJsonObject();
+                com.google.gson.JsonElement element = new JsonParser().parse(fr);
+                if (element == null || !element.isJsonObject()) {
+                    Messages.sendConsole("Task file " + file.getName() + " is empty or invalid. Skipping migration.");
+                    continue;
+                }
+                JsonObject json = element.getAsJsonObject();
 
                 int fileVersion = json.has("configVersion") ? json.get("configVersion").getAsInt() : 0;
 
@@ -94,7 +99,12 @@ public class MigrationManager {
 
         for (File file : files) {
             try (FileReader fr = new FileReader(file)) {
-                JsonObject json = new JsonParser().parse(fr).getAsJsonObject();
+                com.google.gson.JsonElement element = new JsonParser().parse(fr);
+                if (element == null || !element.isJsonObject()) {
+                    Messages.sendConsole("Task file " + file.getName() + " is empty or invalid. Skipping rollback.");
+                    continue;
+                }
+                JsonObject json = element.getAsJsonObject();
 
                 int fileVersion = json.has("configVersion") ? json.get("configVersion").getAsInt() : 0;
 
