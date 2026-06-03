@@ -51,6 +51,10 @@ public class Files {
         if(!enLangFile.exists()) {
             CommandTimerPlugin.getPlugin().saveResource("languages/en.json", false);
         }
+        File ptLangFile = new File(dataFolder.getAbsoluteFile() + "/languages/pt.json");
+        if(!ptLangFile.exists()) {
+            CommandTimerPlugin.getPlugin().saveResource("languages/pt.json", false);
+        }
         CommandTimerPlugin.getPlugin().saveResource("languages/default.json", true);
     }
 
